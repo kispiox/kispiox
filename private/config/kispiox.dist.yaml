@@ -1,0 +1,21 @@
+#
+# private/config/kispiox.dist.yaml
+#
+kispiox:
+
+    # define loadable components
+    components:
+
+        # first pass components
+        -
+            - MattFerris\Bridge\Components\Events\EventsComponent
+
+        # second pass components
+        -
+            - MattFerris\Application\Component
+
+        # third pass components
+        -
+            - MattFerris\Bridge\Components\HttpRouting\HttpRoutingComponent
+
+

@@ -1,0 +1,26 @@
+{
+    "name": "kispiox/kispiox",
+    "description": "A lightweight application framework",
+    "license": "BSD-2-Clause",
+    "autoload": {
+        "psr-4": {"Kispiox\\": "src/"}
+    },
+    "authors": [
+        {
+            "name": "Matt Ferris",
+            "email": "matt@bueller.ca"
+        }
+    ],
+    "require": {
+        "mattferris/application": "dev-develop",
+        "mattferris/configuration": "dev-master",
+        "mattferris/events": "^0.4",
+        "mattferris/di": "^0.4",
+        "mattferris/http-routing": "^0.7",
+        "mattferris/bridge-components": "dev-develop",
+        "zendframework/zend-diactoros": "^1.3.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    }
+}

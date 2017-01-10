@@ -1,0 +1,10 @@
+#
+# private/config/app.dist.yaml
+#
+
+# defined any application-specific components here
+components:
+
+# the main run routine [class, method]
+run: [MattFerris\Bridge\Components\HttpRouting\HttpRoutingComponent, run]
+
