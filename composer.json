@@ -3,7 +3,9 @@
     "description": "A lightweight application framework",
     "license": "BSD-2-Clause",
     "autoload": {
-        "psr-4": {"Kispiox\\": "src/"}
+        "psr-4": {
+            "Kispiox\\": "src/",
+        }
     },
     "authors": [
         {

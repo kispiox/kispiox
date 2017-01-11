@@ -21,6 +21,8 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Diactoros\Response\TextResponse;
+use RuntimeException;
+use InvalidArgumentException;
 
 /**
  * A utility class to provide some nice shortcuts for working with requests and
@@ -43,7 +45,12 @@ class Controller
      */
     public function __construct(ContainerInterface $container)
     {
+        if (!$container->has('Request')) {
+            throw new RuntimeException('container does not contain a request instance');
+        }
+
         $this->container = $container;
+        $this->request = $container->get('Request');
     }
 
     /**
@@ -141,13 +148,13 @@ class Controller
         if (is_string($uri)) {
 
             // make a new URI instance, then make a new request
-            $uri = $this->getRequest()->getUri()->withPath($uri);
-            return $this->getRequest()->withUri($uri);
+            $uri = $this->request->getUri()->withPath($uri);
+            return $this->request->withUri($uri);
 
         } elseif ($uri instanceof UriInterface) {
 
             // get a new request with the specified URI instance
-            return $this->getRequest()->withUri($uri);
+            return $this->request->withUri($uri);
 
         } else {
 
