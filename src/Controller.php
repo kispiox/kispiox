@@ -4,7 +4,7 @@
  * Kispiox - A lightweight application framework
 * www.bueller.ca/kispiox
 *
-* Kispiox.php
+* Controller.php
 * @copyright Copyright (c) 2016 Matt Ferris
 * @author Matt Ferris <matt@bueller.ca>
 *
@@ -71,6 +71,37 @@ class Controller
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Return a URI based on a route name
+     *
+     * @param string $name The name of the route
+     * @param array $params Parameters for the URI
+     * @param bool $absolute Whether or not to generate an absolute URI (default is false)
+     * @return string The URI that was generated
+     */
+    public function generate($name, array $params = [], $absolute = false)
+    {
+        $config = $this->container->get('Config');
+
+        $path = '';
+        if ($config->has('app.basepath')) {
+            $path = $config->get('app.basepath');
+        }
+
+        $path .= $this->container->get('HttpDispatcher')->generate($name, $params);
+
+        if ($absolute === true) {
+            $uristr = (string)$this->request->getUri();
+
+            // get uri up to (but excluding) third slash (http://example.com)
+            // it's safe to assume the third slash won't occur within the first 8 chars
+            $part = substr($uristr, 0, strpos($uristr, '/', 8));
+            $path = $part.$path;
+        }
+
+        return $path;
     }
 
     /**

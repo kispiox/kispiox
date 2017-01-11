@@ -4,6 +4,8 @@ use Kispiox\Controller;
 use Interop\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
+use MattFerris\Configuration\ConfigurationInterface;
+use MattFerris\Http\Routing\DispatcherInterface;
 use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
@@ -49,6 +51,52 @@ class ControllerTest extends PHPUnit_Framework_TestCase
             ->with('Request')
             ->willReturn(false);
         $controller = new Controller($container);
+    }
+
+    /**
+     * @depends testConstruct
+     */
+    public function testGenerate()
+    {
+        $config = $this->createMock(ConfigurationInterface::class);
+        $config->expects($this->once())
+            ->method('has')
+            ->with('app.basepath')
+            ->willReturn('true');
+        $config->expects($this->once())
+            ->method('get')
+            ->with('app.basepath')
+            ->willReturn('/foo');
+
+        $dispatcher = $this->createMock(DispatcherInterface::class);
+        $dispatcher->expects($this->once())
+            ->method('generate')
+            ->with('foo')
+            ->willReturn('/bar/baz');
+
+        $uri = $this->createMock(UriInterface::class);
+        $uri->expects($this->once())
+            ->method('__toString')
+            ->willReturn('http://example.com/foo');
+
+        $request = $this->createMock(ServerRequestInterface::class);
+        $request->expects($this->once())
+            ->method('getUri')
+            ->willReturn($uri);
+
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->once())
+            ->method('has')
+            ->with('Request')
+            ->willReturn(true);
+        $container->expects($this->exactly(3))
+            ->method('get')
+            ->withConsecutive(['Request'], ['Config'], ['HttpDispatcher'])
+            ->will($this->onConsecutiveCalls($request, $config, $dispatcher));
+
+        $controller = new Controller($container, $request);
+
+        $this->assertEquals($controller->generate('foo', [], true), 'http://example.com/foo/bar/baz');
     }
 
     /**
