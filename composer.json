@@ -4,7 +4,7 @@
     "license": "BSD-2-Clause",
     "autoload": {
         "psr-4": {
-            "Kispiox\\": "src/",
+            "Kispiox\\": "src/"
         }
     },
     "authors": [
