@@ -1,0 +1,18 @@
+#
+# private/config/services.dist.yaml
+#
+# Service definitions
+#
+services:
+
+#
+#    MyAwesomeService:
+#        class: '\\My\\Namespace\\ServiceClassName'
+#        args: { foo: 'bar' }
+#
+#        setters:
+#            - { name: 'setBaz', args: { baz: 'bif' } }
+#
+#        events:
+#            - { name: 'SuperCoolEvent', listener: 'onSuperCoolEvent' }
+#

@@ -1,0 +1,35 @@
+#
+# private/config/routes.dist.yaml
+#
+# Route definitions
+#
+
+#
+# Routes have three required parts: name, path, and action.
+#
+#   name: { path: '...', action: '...' }
+#
+# Route actions can be specified two ways:
+#
+#   ClassName:methodName (creates an instance of ClassName if one doesn't already exist)
+#
+#   ClassName::methodName (statically calls the method)
+#
+# Simple path-based match:
+#   
+#   foo: { path: '/foo', action: '\\Controller\\Class\\Name:methodName' }
+#
+# Match request method and headers as well:
+#
+#   foo: { path: '/foo', method: 'GET', headers: { Host: 'example.com' }, action: '\\Controller\\Class\\Name:methodName' }
+#
+# Capture parameters (if requested path was /users/joe, then {user} will capture 'joe')
+#
+#   lookup_user: { path: '/users/{user}', action: '\\Controller\\Class\\Name:methodName' }
+#
+# Specify default values for parameters (route will match if parameter not specified)
+#
+#   lookup_user: { path: '/users/{user}', defaults: { user: 'nobody' }, action: '\\Controller\\Class\\Name:methodName' }
+#
+
+routes:
