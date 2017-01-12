@@ -6,7 +6,7 @@
 components:
 
     # safe to remove after installation
-    - Kispiox\Demo\DemoComponent 
+    - Kispiox\Component\DefaultComponent
 
 # the main run routine [class, method]
 run: [MattFerris\Bridge\Components\HttpRouting\HttpRoutingComponent, run]
