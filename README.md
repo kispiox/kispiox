@@ -1,6 +1,8 @@
 Kispiox
 =======
 
+[![Build Status](https://travis-ci.org/kispiox/kispiox.svg?branch=master)](https://travis-ci.org/kispiox/kispiox)
+
 Kispiox is a lightweight PHP web framework.
 
 Installation
