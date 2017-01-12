@@ -49,5 +49,30 @@ abstract class ConfigProvider implements ProviderInterface
             $this->config->load($this->file);
         }
     }
+
+    /**
+     * Get path to actual config file
+     *
+     * @return string The path to the file
+     */
+    public function getConfigFilePath()
+    {
+        $path = null;
+        $locator = $this->config->getLocator();
+
+        if (is_array($this->file)) {
+            $res = null;
+            foreach ($this->file as $file) {
+                if (($res = $locator->locate($file)) !== false) {
+                    break;
+                }
+            }
+            $path = $res->getPath();
+        } else {
+            $path = $locator->locate($this->file)->getPath();
+        }
+
+        return $path;
+    }
 }
 
