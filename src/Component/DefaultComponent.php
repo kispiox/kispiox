@@ -15,8 +15,24 @@
 namespace Kispiox\Component;
 
 use MattFerris\Application\Component;
+use MattFerris\Di\ContainerInterface;
+use Zend\Diactoros\ServerRequestFactory;
+use Zend\Diactoros\Response\SapiEmitter;
 
 class DefaultComponent extends Component
 {
+
+    /**
+     * Bootstrap an HTTP request/response cycle
+     *
+     * @param \MattFerris\Di\ContainerInterface $container
+     */
+    static public function run(ContainerInterface $container)
+    {
+        $request = ServerRequestFactory::fromGlobals();
+        $container->set('Request', $request);
+        $response = $container->get('HttpDispatcher')->dispatch($request);
+        (new SapiEmitter())->emit($response);
+    }
 }
 

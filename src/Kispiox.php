@@ -46,8 +46,9 @@ class Kispiox
         $di = new Di();
         $di->set('Config', $config);
 
+        $run = $config->get('app.run');
         $app = new Application($di, $components);
-        $app->run($config->get('app.run'));
+        $app->run($run);
     }
 }
 

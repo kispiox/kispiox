@@ -5,9 +5,9 @@
 # defined any application-specific components here
 components:
 
-    # safe to remove after installation
+    # responsible for loading services and routes
     - Kispiox\Component\DefaultComponent
 
 # the main run routine [class, method]
-run: [MattFerris\Bridge\Components\HttpRouting\HttpRoutingComponent, run]
+run: ['Kispiox\Component\DefaultComponent', 'run']
 
