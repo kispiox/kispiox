@@ -67,6 +67,17 @@ class ServicesProviderTest extends PHPUnit_Framework_TestCase
     /**
      * @depends testConstruct
      */
+    public function testNullValueForServices()
+    {
+        $services = null;
+        $container = $this->createMock(ContainerInterface::class);
+        $provider = $this->makeProvider($services, $container);
+        $provider->provides($container);
+    }
+
+    /**
+     * @depends testConstruct
+     */
     public function testServiceWithNoArgs()
     {
         $services = [

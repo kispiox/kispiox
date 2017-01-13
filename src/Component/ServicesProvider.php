@@ -33,7 +33,12 @@ class ServicesProvider extends ConfigProvider
     {
         $file = $this->getConfigFilePath();
 
-        foreach ($this->config->get() as $name => $def) {
+        $services = $this->config->get('services');
+        if (is_null($services)) {
+            return;
+        }
+
+        foreach ($services as $name => $def) {
 
             // if no class is defined, throw an exception
             if (!isset($def['class'])) {

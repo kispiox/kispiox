@@ -33,7 +33,12 @@ class RoutingProvider extends ConfigProvider
     {
         $file = $this->getConfigFilePath();
 
-        foreach ($this->config->get() as $name => $route) {
+        $routes = $this->config->get('routes');
+        if (is_null($routes)) {
+            return;
+        }
+
+        foreach ($routes as $name => $route) {
 
             // if no path is defined, throw an exception
             if (!isset($route['path'])) {

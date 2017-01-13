@@ -86,6 +86,19 @@ class RoutingProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @depends testConstruct
+     */
+    public function testNullValueForRoutes()
+    {
+        $routes = null;
+
+        $dispatcher = $this->createMock(DispatcherInterface::class);
+
+        $provider = $this->makeProvider($routes);
+        $provider->provides($dispatcher);
+    }
+
+    /**
      * @depends testRoute
      * @expectedException RuntimeException
      * @expectedExceptionMessage no "path" in route "foo" defined in private/config/routes.yaml
