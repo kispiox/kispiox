@@ -14,10 +14,12 @@
 
 namespace Kispiox\Component;
 
+use Kispiox\Controller;
 use MattFerris\Application\Component;
 use MattFerris\Di\ContainerInterface;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response\SapiEmitter;
+use RuntimeException;
 
 class DefaultComponent extends Component
 {
@@ -32,6 +34,12 @@ class DefaultComponent extends Component
         $request = ServerRequestFactory::fromGlobals();
         $container->set('Request', $request);
         $response = $container->get('HttpDispatcher')->dispatch($request);
+
+        if (is_null($response)) {
+            $controller = new Controller($container);
+            $response = new TextResponse('Internal server error. Dispatcher returned null response.', 500);
+        }
+
         (new SapiEmitter())->emit($response);
     }
 }
