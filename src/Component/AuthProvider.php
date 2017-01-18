@@ -14,11 +14,10 @@
 
 namespace Kispiox\Component;
 
-use MattFerris\Provider\ProviderInterface;
 use Kispiox\Authentication\UsernamePasswordRequest;
 use Kispiox\Authentication\UsernamePasswordHandler;
 
-class AuthProvider implements ProviderInterface
+class AuthProvider extends ConfigProvider
 {
     /**
      * @var string The file to load
