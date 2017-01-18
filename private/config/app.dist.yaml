@@ -11,3 +11,11 @@ components:
 # the main run routine [class, method]
 run: ['Kispiox\Component\DefaultComponent', 'run']
 
+# authentication settings
+auth:
+
+    # the key to use to sign auth tokens, required
+    # key: 'superSecretAndSecureKey'
+
+    # how long authentication is valid for
+    # duration: 3600
