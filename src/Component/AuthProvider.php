@@ -18,7 +18,7 @@ use MattFerris\Provider\ProviderInterface;
 use Kispiox\Authentication\UsernamePasswordRequest;
 use Kispiox\Authentication\UsernamePasswordHandler;
 
-abstract class AuthProvider implements ProviderInterface
+class AuthProvider implements ProviderInterface
 {
     /**
      * @var string The file to load
