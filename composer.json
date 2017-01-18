@@ -19,7 +19,8 @@
         "mattferris/events": "^0.4",
         "mattferris/di": "^0.4",
         "mattferris/http-routing": "^0.7",
-        "mattferris/bridge-components": "^0.2",
+	"mattferris/auth": "^0.1",
+        "mattferris/bridge-components": "^0.3",
         "zendframework/zend-diactoros": "^1.3.8"
     },
     "require-dev": {
