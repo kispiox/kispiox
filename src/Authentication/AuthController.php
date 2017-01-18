@@ -18,6 +18,7 @@ use Kispiox\Controller;
 use Kispiox\Authentication\UsernamePasswordRequest;
 use Psr\Http\Message\ServerRequestInterface;
 use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\ValidationData;
 
 class AuthController extends Controller
@@ -38,19 +39,33 @@ class AuthController extends Controller
      */
     public function verifyAction(ServerRequestInterface $request)
     {
+        $token = null;
+
         $auth = $request->getHeaderLine('Authorization');
-        list($type, $token) = explode($auth, ' ');
-
-        if ($type === 'Bearer') {
-            $token = (new Parser())->parse($token);
-
-            $data = new ValidationData();
-            if ($token->validate($data)) {
-                return null;
+        if (!is_null($auth)) {
+            $parts = explode(' ', $auth);
+            if (count($parts) == 2 && $parts[0] === 'Bearer') {
+                $token = (new Parser)->parse($parts[1]);
             }
         }
 
-        return $this->authResponse('not authenticated', 401);
+        $cookies = $request->getCookieParams();
+        if (isset($cookies['_jwt'])) {
+            $token = (new Parser)->parse($cookies['_jwt']);
+        }
+
+        $query = $request->getQueryParams();
+        if (isset($query['_jwt'])) {
+            $token = (new Parser)->parse($query['_jwt']);
+        }
+
+        $config = $this->container->get('Config');
+        if (is_null($token)
+            || !$token->validate(new ValidationData())
+            || !$token->verify(new Sha256(), $config->get('app.auth.key'))
+        ) {
+            return $this->authResponse('not authenticated', 401);
+        }
     }
 
     /**
@@ -68,7 +83,7 @@ class AuthController extends Controller
 
             if ($response->isValid()) {
                 $attr = $response->getAttributes();
-                return $this->authResponse($attr['token']);
+                return $this->authResponse((string)$attr['token']);
             }
         }
 
