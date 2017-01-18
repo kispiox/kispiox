@@ -17,6 +17,7 @@ namespace Kispiox\Component;
 use Kispiox\Authentication\UsernamePasswordRequest;
 use Kispiox\Authentication\UsernamePasswordHandler;
 use Kispiox\Authentication\TokenManipulator;
+use MattFerris\Auth\Response;
 
 class AuthProvider extends ConfigProvider
 {
@@ -34,7 +35,7 @@ class AuthProvider extends ConfigProvider
         $manipulator = new TokenManipulator($this->container->get('Config'));
         $consumer
             ->handle(UsernamePasswordRequest::class, [$handler, 'handleUsernamePassword'])
-            ->manipulate(UsernamePasswordRequest::class, [$manipulator, 'manipulate']);
+            ->manipulate(Response::class, [$manipulator, 'manipulate']);
     }
 }
 
