@@ -14,11 +14,12 @@
 
 namespace Kispiox\Component;
 
-use MattFerris\Provider\ProviderInterface;
 use Kispiox\Authentication\UsernamePasswordRequest;
 use Kispiox\Authentication\UsernamePasswordHandler;
+use Kispiox\Authentication\TokenManipulator;
+use MattFerris\Auth\Response;
 
-class AuthProvider implements ProviderInterface
+class AuthProvider extends ConfigProvider
 {
     /**
      * @var string The file to load
@@ -31,7 +32,10 @@ class AuthProvider implements ProviderInterface
     public function provides($consumer)
     {
         $handler = new UsernamePasswordHandler($this->config->get('users'));
-        $consumer->handle(UsernamePasswordRequest::class, [$handler, 'handleUsernamePassword']);
+        $manipulator = new TokenManipulator($this->container->get('Config'));
+        $consumer
+            ->handle(UsernamePasswordRequest::class, [$handler, 'handleUsernamePassword'])
+            ->manipulate(Response::class, [$manipulator, 'manipulate']);
     }
 }
 
