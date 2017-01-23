@@ -18,6 +18,7 @@ use Kispiox\Controller;
 use MattFerris\Application\Component;
 use MattFerris\Di\ContainerInterface;
 use Zend\Diactoros\ServerRequestFactory;
+use Zend\Diactoros\Response\TextResponse;
 use Zend\Diactoros\Response\SapiEmitter;
 use RuntimeException;
 
