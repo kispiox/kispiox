@@ -16,13 +16,17 @@ kispiox:
 
         # first pass components
         -
-            - MattFerris\Bridge\Components\Events\EventsComponent
+            - MattFerris\Bridge\Components\Logging\LoggingComponent
 
         # second pass components
         -
-            - MattFerris\Application\Component
+            - MattFerris\Bridge\Components\Events\EventsComponent
 
         # third pass components
+        -
+            - MattFerris\Application\Component
+
+        # fourth pass components
         -
             - MattFerris\Bridge\Components\HttpRouting\HttpRoutingComponent
 

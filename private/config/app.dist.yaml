@@ -11,6 +11,12 @@ components:
 # the main run routine [class, method]
 run: ['Kispiox\Component\DefaultComponent', 'run']
 
+# log file
+#logfile: 'private/logs/error.log'
+
+# debug log file
+#debugfile: 'private/logs/debug.log'
+
 # authentication settings
 auth:
 

@@ -16,16 +16,17 @@
     "require": {
         "mattferris/application": "^0.2",
         "mattferris/configuration": "^0.1",
+        "mattferris/logging": "^0.1",
         "mattferris/events": "^0.4",
         "mattferris/di": "^0.4",
         "mattferris/http-routing": "^0.7",
 	"mattferris/auth": "^0.2",
-        "mattferris/bridge-components": "^0.3",
-        "zendframework/zend-diactoros": "^1.3.8",
+        "mattferris/bridge-components": "^0.4",
+        "zendframework/zend-diactoros": "^1.7",
         "lcobucci/jwt": "^3.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
-        "satooshi/php-coveralls": "^1.0"
+        "php-coveralls/php-coveralls": "^2.0"
     }
 }

@@ -46,9 +46,21 @@ class Kispiox
         $di = new Di();
         $di->set('Config', $config);
 
-        $run = $config->get('app.run');
-        $app = new Application($di, $components);
-        $app->run($run);
+        try {
+
+            $run = $config->get('app.run');
+            $app = new Application($di, $components);
+            $app->run($run);
+
+        } catch (\Exception $e) {
+
+            if ($di->has('Logger')) {
+                $di->get('Logger')->critical('encountered exception: '.(string)$e, ['exception' => $e]);
+            } else {
+                error_log((string)$e);
+            }
+
+        }
     }
 }
 
