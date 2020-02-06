@@ -26,7 +26,7 @@ require('vendor/autoload.php');
 Kispiox/Kispiox::start();
 ```
 
-Finally, update `compser.json` with your autoloading requirements.
+Finally, update `composer.json` with your autoloading requirements.
 
 ```json
 {
@@ -43,7 +43,7 @@ Finally, update `compser.json` with your autoloading requirements.
 
 And that's it! Make sure to add your classes in the `src/` directory.
 
-Now t's time to create a *controller*.
+Now it's time to create a *controller*.
 
 Creating a Controller
 ---------------------
@@ -121,7 +121,7 @@ need to create `private/config` first.
 # mkdir -p private/config
 ```
 
-Now create a YAML file with the following:
+Now create `routes.yaml` with the following:
 
 ```yaml
 routes:
@@ -135,7 +135,7 @@ When a request matching `/` is received, the HTTP dispatcher will call
 response it will return to the dispatcher, which will in turn output to the
 client.
 
-Routes are matched based on prefix, so any path beginnig with `/hello` will be
+Routes are matched based on prefix, so any path beginning with `/hello` will be
 sent to the action.
 
 ### Additional Route Matching Criteria
@@ -145,16 +145,16 @@ along with header values. For, example:
 
 ```yaml
 routes:
-    - { method: 'GET', headers: { Host: 'example.com' }, path: '/hello', action: '\\My\\Project\\...' }
+    - { path: '/hello', method: 'GET', headers: { Host: 'example.com' }, action: '\\My\\Project\\...' }
 ```
 
 Now, in addition to matching the path `/hello`, a request must have been made
-using the `GET` method and must contain a Host header set to `example.com`.
+using the `GET` method and must contain a *Host* header set to `example.com`.
 
 ### Capturing Route Parameters
 
 In many cases it can be useful to capture parts of the URL path for use by the
-action. This can be accomplishe by enclosing a path segment (each segment being
+action. This can be accomplished by enclosing a path segment (each segment being
 the characters between slashes) in curly braces.
 
 ```yaml
