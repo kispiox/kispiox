@@ -163,7 +163,7 @@ class Controller
      * @param array $headers Array of headers for response
      * @return TextResponse
      */
-    public function textResponse($text, $status = 302, $headers = [])
+    public function textResponse($text, $status = 200, $headers = [])
     {
         return new TextResponse($text, $status, $headers);
     }
