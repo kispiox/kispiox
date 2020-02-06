@@ -17,9 +17,9 @@ namespace Kispiox\Component;
 use Kispiox\Controller;
 use MattFerris\Application\Component;
 use MattFerris\Di\ContainerInterface;
-use Zend\Diactoros\ServerRequestFactory;
-use Zend\Diactoros\Response\TextResponse;
-use Zend\Diactoros\Response\SapiEmitter;
+use Laminas\Diactoros\ServerRequestFactory;
+use Laminas\Diactoros\Response\TextResponse;
+use Laminas\Diactoros\Response\SapiEmitter;
 use RuntimeException;
 
 class DefaultComponent extends Component
