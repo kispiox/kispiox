@@ -4,7 +4,7 @@
  * Kispiox - A lightweight application framework
 * www.bueller.ca/kispiox
 *
-* Component/ServicesProvider.php
+* Component/ServicesHelper.php
 * @copyright Copyright (c) 2016 Matt Ferris
 * @author Matt Ferris <matt@bueller.ca>
 *
@@ -16,20 +16,20 @@ namespace Kispiox\Component;
 
 use RuntimeException;
 
-class ServicesProvider extends ConfigProvider
+class ServiceHelper extends ConfigHelper
 {
     /**
      * @var string The config file to load
      */
     protected $file = [ 'services.yaml', 'services.dist.yaml' ];
 
+
     /**
      * Configure the container with services defined in a config file.
      *
-     * @param \MattFerris\Di\ContainerInterface $consumer The container instance
      * @throws \RuntimeException If the service definition contains missing or broken values
      */
-    public function provides($consumer)
+    public function execute()
     {
         $file = $this->getConfigFilePath();
 
@@ -60,8 +60,8 @@ class ServicesProvider extends ConfigProvider
                 $args = $def['args'];
             }
 
-            $instance = $consumer->injectConstructor($def['class'], $args);
-            $consumer->set($name, $instance);
+            $instance = $this->container->injectConstructor($def['class'], $args);
+            $this->container->set($name, $instance);
 
             // process any setters
             if (isset($def['setters'])) {
@@ -110,7 +110,7 @@ class ServicesProvider extends ConfigProvider
                     );
                 }
 
-                $dispatcher = $consumer->get('EventDispatcher');
+                $dispatcher = $this->container->get('EventDispatcher');
 
                 foreach ($def['events'] as $i => $event) {
 

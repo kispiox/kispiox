@@ -4,7 +4,7 @@
  * Kispiox - A lightweight application framework
 * www.bueller.ca/kispiox
 *
-* Component/RoutingProvider.php
+* Component/RouteHelper.php
 * @copyright Copyright (c) 2016 Matt Ferris
 * @author Matt Ferris <matt@bueller.ca>
 *
@@ -14,22 +14,40 @@
 
 namespace Kispiox\Component;
 
+use MattFerris\Configuration\ConfiguratinInterface;
+use MattFerris\Http\Routing\DispatcherInterface;
+use Psr\Container\ContainerInterface;
 use RuntimeException;
 
-class RoutingProvider extends ConfigProvider
+class RouteHelper extends ConfigHelper;
 {
     /**
      * @var string The config file to load
      */
     protected $file = [ 'routes.yaml', 'routes.dist.yaml' ];
 
+
+    /**
+     * @param Psr\Container\ContainerInterface $container
+     * @param MattFerris\Configuration\ConfigurationInterface $config
+     * @param MattFerris\Http\Routing\DispatcherInterface $dispatcher
+    public function __construct(
+        ContainerInterface $container,
+        ConfigurationInterface $config,
+        DispatcherInterface $dispatcher
+    )
+    {
+        parent::__construct($container, $config);
+        $this->dispatcher = $dispatcher;
+    }
+
+
     /**
      * Configure the http dispatcher with routes defined in a config file.
      *
-     * @param \MattFerris\Http\Routing\DispatcherInterface $consumer The http dispatcher instance
      * @throws \RuntimeException If a route definition contains missing or broken values
      */
-    public function provides($consumer)
+    public function execute()
     {
         $file = $this->getConfigFilePath();
 
@@ -93,7 +111,7 @@ class RoutingProvider extends ConfigProvider
                 $defaults = $route['defaults'];
             }
 
-            $consumer->route($path, $action, $method, $headers, $defaults, $name);
+            $this->dispatcher->route($path, $action, $method, $headers, $defaults, $name);
 
         } // foreach
     }

@@ -4,7 +4,7 @@
  * Kispiox - A lightweight application framework
 * www.bueller.ca/kispiox
 *
-* Component/ConfigProvider.php
+* Component/ConfigHelper.php
 * @copyright Copyright (c) 2016 Matt Ferris
 * @author Matt Ferris <matt@bueller.ca>
 *
@@ -14,12 +14,12 @@
 
 namespace Kispiox\Component;
 
-use MattFerris\Provider\ProviderInterface;
-use MattFerris\Di\ContainerInterface;
+use MattFerris\Application\Component\ComponentInterface;
 use MattFerris\Configuration\ConfigurationInterface;
 use MattFerris\Configuration\Loaders\YamlLoader;
+use Psr\Container\ContainerInterface;
 
-abstract class ConfigProvider implements ProviderInterface
+abstract class ConfigHelper implements ProviderInterface
 {
     /**
      * @var string The file to load
@@ -35,6 +35,7 @@ abstract class ConfigProvider implements ProviderInterface
      * @var Configuration The configuration instance
      */
     protected $config;
+
 
     /**
      * @param ContainerInterface $container The container instance
